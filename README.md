@@ -29,6 +29,8 @@ How to use:
 
 ` max        Set the screen brightness to max ( hardware dependet )`
 
+` med        Set the screnn brightness to med ( (max - min ) / 2 )`
+
 ` min        Set the screen brightness to min  ( hardcoded, default: 0 )`
 
 
