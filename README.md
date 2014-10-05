@@ -9,7 +9,7 @@ How to compile:
 
 How to install:
 ----------------
- `# mv set-backçight /usr/local/bin`
+ `# mv set-backlight /usr/local/bin`
  
  `# chown root /usr/local/bin/set-backlight`
  
