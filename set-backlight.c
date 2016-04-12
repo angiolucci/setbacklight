@@ -24,13 +24,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define FILE_MAX_BRI "/sys/class/backlight/acpi_video0/max_brightness"
-#define FILE_CUR_BRI "/sys/class/backlight/acpi_video0/brightness"
+#define FILE_MAX_BRI "/sys/class/backlight/intel_backlight/max_brightness"
+#define FILE_CUR_BRI "/sys/class/backlight/intel_backlight/brightness"
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
 
 #define MIN_BRI 0
-#define STEP ( ( getMaxBri() - MIN_BRI ) / 10 )
+#define STEP ( ( getMaxBri() - MIN_BRI ) / 20 )
 
 int getCurBri(){
 	FILE *pFile = NULL;
@@ -123,7 +123,8 @@ void showHelp(char *filename){
 	printf("--decrease\tDecrease the screen brightness by %d\n", STEP);
 	printf("max\t\tSet the screen brightness to %d\n", max_bri);
     printf("med\t\tSet the screen brightness to %d\n", (max_bri - MIN_BRI) / 2 );
-	printf("min\t\tSet the screen brightness to %d\n", MIN_BRI);
+	printf("min\t\tSet the screen brightness to %d\n", MIN_BRI + STEP);
+    printf("off\t\tShut down the screen brighteness");
 	printf("\nIf OPTION is omitted, then it prints the current ");
 	printf("screen brightness value.\n");
 }
@@ -139,9 +140,11 @@ int main(int argc, char *argv[]){
 		else if (!strcmp(argv[1], "max"))
 			setBri(getMaxBri());
 		else if (!strcmp(argv[1], "min"))
-			setBri(MIN_BRI);
+			setBri(MIN_BRI + STEP);
         else if (!strcmp(argv[1], "med"))
             setBri((getMaxBri() - MIN_BRI) / 2);
+        else if (!strcmp(argv[1], "off"))
+            setBri(MIN_BRI);
 		else if (!strcmp(argv[1], "--help") || !strcmp(argv[1], "-h"))
 			showHelp(argv[0]);
 		else if(atoi(argv[1]) >= MIN_BRI && atoi(argv[1]) <= getMaxBri())
